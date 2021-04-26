@@ -14,7 +14,34 @@ Crunchbase is the premier destination for discovering industry trends, investmen
 
 Inside the starter-code folder you will find the crunchdatabase file.
 
-Use mongoimport to import into `companies` collection in `crunchbase` database
+First, we need to import the database we will be using for the `lab`. We will use the Crunchbase database. Crunchbase is the premier destination for discovering industry trends, investments, and news about hundreds of thousands of companies globally. From startups to Fortune 500s, Crunchbase is recognized as the primary source of company intelligence by millions of users globally.
+
+The database contains more than 18k documents. Each document holds the data about each of the companies. A document looks like the following:
+
+![image](https://user-images.githubusercontent.com/23629340/36494916-d6db1770-1733-11e8-903e-5119b3c1b688.png)
+
+1. You will find the `.zip` file of the database on the **lab** folder.
+2. Unzip the file
+3. Navigate to this lab's folder in your terminal, and when inside, import the database to Mongo using the following command:
+
+**When running the `mongoimport` you should be located in the same folder as the `data.json` file.**
+
+Download MongoDB database tools from this [link](https://www.mongodb.com/try/download/database-tools?tck=docs_databasetools)
+
+```bash
+$ mongoimport --db companiesDB --collection companies --file data.json
+```
+
+So your terminal command should be something like 
+```
+$ .\mongoimport.exe "mongodb+srv://root:root@cluster0.lo8dg.mongodb.net/crunchbase" .\companies.json
+```
+
+What this mongoimport will do for us is to create a database named _companiesDB_, and inside the database will create a collection named _companies_ which will be fed with _data.json_.
+
+<img src="https://oscarm.tinytake.com/media/fe6df6?filename=1619452214971_TinyTake26-04-2021-05-50-11_637550490141923431.png&sub_type=thumbnail_preview&type=attachment&width=1199&height=260" title="Powered by TinyTake Screen Capture"/><br><a href="https://www.tinytake.com">Powered by TinyTake Screen Capture</a>
+
+_Side note_: In case errors or hanging with no response when running this command, add [--jsonArray](https://docs.mongodb.com/manual/reference/program/mongoimport/#cmdoption-mongoimport-jsonarray) at the end of the previous command.
 
 
 💡 Check mongoimport documentation if you don't remember how to do it. 💡
@@ -37,7 +64,7 @@ $ npm init
 Now that we have created the project, add the following packages`clear` and `mongodb`
 
 ```javascript
-$ npm install --save mongodb@2
+$ npm install --save mongodb
 $ npm install --save clear
 ```
 
@@ -53,7 +80,7 @@ const rl = readline.createInterface({
 	output: process.stdout
 });
 
-const url = `mongodb://localhost:27017/crunchbase`
+const url = `mongodb://MONGODB-ATLAS/`
 
 mongoClient.connect(url, (error, db) => {
   if (error) {
@@ -171,15 +198,17 @@ Inside `case "1":`
 
 
 ```javascript
-db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) => {
-  if (error) {
-    console.log(error);
-    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-  } else {
-    console.log(result);
-    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-  }
-})
+                case "1":
+                    db.collection('companies').find({}).project({ name: 1, _id: 0 }).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                        } else {
+                            console.log(result);
+                            rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                        }
+                    })
+                    break;
 ```
 
 ## Now it's your turn
@@ -209,6 +238,6 @@ In this exercise you practice with MongoDB Driver to perform different queries.
 
 ## Extra Resources
 
-[MongoDB NodeJS Driver Documentatio](http://mongodb.github.io/node-mongodb-native/2.2/quick-start/)
+[MongoDB NodeJS Driver Documentatio](http://mongodb.github.io/node-mongodb-native/3.6/quick-start/)
 
 [MongoShell Documentation](https://docs.mongodb.com/manual/)
