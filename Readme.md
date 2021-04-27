@@ -34,7 +34,7 @@ $ mongoimport --db companiesDB --collection companies --file data.json
 
 So your terminal command should be something like 
 ```
-$ .\mongoimport.exe "mongodb+srv://root:root@cluster0.lo8dg.mongodb.net/crunchbase" .\companies.json
+$ .\mongoimport.exe "mongodb+srv://username:password@cluster1.lo9dg.mongodb.net/crunchbase" .\companies.json
 ```
 
 What this mongoimport will do for us is to create a database named _companiesDB_, and inside the database will create a collection named _companies_ which will be fed with _data.json_.
@@ -50,7 +50,7 @@ _Side note_: In case errors or hanging with no response when running this comman
 First of all perform in MongoShell the following query in order to know how the documents are structured.
 
 ```javascript
-db.companies.find({name: "Facebook"}).pretty()
+db.collection.('companies').find({name: "Facebook"}).pretty()
 ```
 
 ## Let's start
@@ -214,6 +214,10 @@ Inside `case "1":`
 ## Now it's your turn
 
 Perfom the 17 queries, following the instructions how we did before
+
+## Attention !!
+
+Remember to always look for MongoDB NodeJS driver 3.x documentation. There are some breaking changes between 2.x and 3.x (this code itself is adapted from Iroanhack exercise to make it work with MongoDB 3.6)
 
 ## Extra Queries
 

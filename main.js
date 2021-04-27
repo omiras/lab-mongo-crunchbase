@@ -7,7 +7,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const url = `mongodb+srv://root:root@cluster0.lo8dg.mongodb.net`
+const url = `YOUR URI`
 
 mongoClient.connect(url, (error, client) => {
     if (error) {
@@ -37,12 +37,11 @@ mongoClient.connect(url, (error, client) => {
                     })
                     break;
                 case "2":
-                    console.log('you typed 2');
-                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                    // Copy query from case "1" and modify it 
                     break;
                 case "0":
                     console.log(`👋👋👋👋 😞 \n`);
-                    db.close((error) => { process.exit(0) });
+                    client.close((error) => { process.exit(0) });
                     break;
                 default:
                     mainMenu();
